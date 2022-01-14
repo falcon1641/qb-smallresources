@@ -24,8 +24,8 @@ local recoils = {
 	-- [940833800] = 0.3,		--['weapon_stone_hatchet']
 
 	-- Handguns
-	[453432689] = 0.3,			--['weapon_pistol']
-	[-1075685676] = 0.5,		--['weapon_pistol_mk2']
+	[453432689] = 0.2,			--['weapon_pistol']
+	[-1075685676] = 0.2,		--['weapon_pistol_mk2']
 	[1593441988] = 0.2,			--['weapon_combatpistol']
 	[584646201] = 0.3,			--['weapon_appistol']
 	[911657153] = 0.1,			--['weapon_stungun']
@@ -46,7 +46,7 @@ local recoils = {
 
 	-- Submachine Guns
 	[324215364] = 0.5,			--['weapon_microsmg']
-	[736523883] = 0.4,			--['weapon_smg']
+	[736523883] = 0.3,			--['weapon_smg']
 	[2024373456] = 0.1,			--['weapon_smg_mk2']
 	[-270015777] = 0.1,			--['weapon_assaultsmg']
 	[171789620] = 0.2,			--['weapon_combatpdw']
@@ -67,9 +67,9 @@ local recoils = {
 	[94989220] = 0.0,			--['weapon_combatshotgun']
 
 	-- Assault Rifles
-	[-1074790547] = 0.5,		--['weapon_assaultrifle']
+	[-1074790547] = 0.2,		--['weapon_assaultrifle']
 	[961495388] = 0.2,			--['weapon_assaultrifle_mk2']
-	[-2084633992] = 0.3,		--['weapon_carbinerifle']
+	[-2084633992] = 0.2,		--['weapon_carbinerifle']
 	[-86904375] = 0.1,			--['weapon_carbinerifle_mk2']
 	[-1357824103] = 0.1,		--['weapon_advancedrifle']
 	[-1063057011] = 0.2,		--['weapon_specialcarbine']
