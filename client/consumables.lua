@@ -15,6 +15,63 @@ function loadAnimDict(dict)
     end
 end
 
+function DrunkEffect()
+
+    local playerPed = PlayerPedId()
+
+    Citizen.Wait(200)
+    RequestAnimSet("move_m@drunk@slightlydrunk")
+
+    while not HasAnimSetLoaded("move_m@drunk@slightlydrunk") do
+        Citizen.Wait(0)
+    end
+
+    SetPedMovementClipset(playerPed, "move_m@drunk@slightlydrunk", true)
+
+    SetTimecycleModifier("spectator5")
+    SetPedMotionBlur(playerPed, true)
+    SetPedIsDrunk(playerPed, true)
+
+    Citizen.Wait(60000) -- Time to wait before setting ped to sober
+
+    Reality()
+end
+
+function Reality()
+
+    Citizen.CreateThread(function()
+  
+      local playerPed = GetPlayerPed(-1)
+  
+      DoScreenFadeOut(800)
+      Wait(1000)
+  
+      ClearTimecycleModifier()
+      ResetScenarioTypesEnabled()
+      ResetPedMovementClipset(playerPed, 0)
+      SetPedIsDrunk(playerPed, false)
+      SetPedMotionBlur(playerPed, false)
+  
+      DoScreenFadeIn(800)
+  
+    end)
+end
+
+function AlcoholEffectStrong()
+    StartScreenEffect("BikerFilter", 1.0, 0)
+    SetPedMovementClipset(GetPlayerPed(-1), "move_m@drunk@verydrunk", true)
+    SetPedIsDrunk(GetPlayerPed(-1), true)
+    SetPedAccuracy(GetPlayerPed(-1), 0)
+    ShakeGameplayCam("DRUNK_SHAKE", 1.0)
+    Citizen.Wait(60000) ---10 mins
+    StopScreenEffect("BikerFilter")
+    ClearTimecycleModifier()
+    ResetScenarioTypesEnabled()
+    ResetPedMovementClipset(GetPlayerPed(-1), 0)
+    SetPedIsDrunk(GetPlayerPed(-1), false)
+    SetPedMotionBlur(GetPlayerPed(-1), false)
+end
+
 function EquipParachuteAnim()
     loadAnimDict("clothingshirt")        
     TaskPlayAnim(PlayerPedId(), "clothingshirt", "try_shirt_positive_d", 8.0, 1.0, -1, 49, 0, 0, 0, 0)
@@ -238,9 +295,11 @@ RegisterNetEvent('consumables:client:DrinkAlcohol', function(itemName)
         TriggerServerEvent("QBCore:Server:RemoveItem", itemName, 1)
         TriggerServerEvent("QBCore:Server:SetMetaData", "thirst", QBCore.Functions.GetPlayerData().metadata["thirst"] + ConsumeablesAlcohol[itemName])
         alcoholCount = alcoholCount + 1
-        if alcoholCount > 1 and alcoholCount < 4 then
+        if alcoholCount > 2 and alcoholCount < 4 then
+	    DrunkEffect()			
             TriggerEvent("evidence:client:SetStatus", "alcohol", 200)
         elseif alcoholCount >= 4 then
+	    AlcoholEffectStrong()			
             TriggerEvent("evidence:client:SetStatus", "heavyalcohol", 200)
         end
         
@@ -437,9 +496,9 @@ RegisterNetEvent('consumables:client:UseArmor', function()
 		disableCombat = true,
     }, {}, {}, {}, function() -- Done
         TriggerEvent("inventory:client:ItemBox", QBCore.Shared.Items["armor"], "remove")
-        TriggerServerEvent('hospital:server:SetArmor', 75)
+        TriggerServerEvent('hospital:server:SetArmor', 100)
         TriggerServerEvent("QBCore:Server:RemoveItem", "armor", 1)
-        SetPedArmour(PlayerPedId(), 75)
+        SetPedArmour(PlayerPedId(), 100)
     end)
 end)
 
