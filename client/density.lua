@@ -1,9 +1,9 @@
 local density = {
-   ['parked'] = 0.2,
+    ['parked'] = 0.1,
     ['vehicle'] = 0.1,
-    ['multiplier'] = 0.2,
-    ['peds'] = 0.4,
-    ['scenario'] = 0.3,
+    ['multiplier'] = 0.1,
+    ['peds'] = 0.1,
+    ['scenario'] = 0.1,
 }
 
 CreateThread(function()
@@ -13,6 +13,11 @@ CreateThread(function()
 		SetRandomVehicleDensityMultiplierThisFrame(density['multiplier'])
 		SetPedDensityMultiplierThisFrame(density['peds'])
 		SetScenarioPedDensityMultiplierThisFrame(density['scenario'], density['scenario']) -- Walking NPC Density
+        SetVehicleModelIsSuppressed(GetHashKey("rubble"), true)
+      --  SetVehicleModelIsSuppressed(GetHashKey("dump"), true)
+    --    SetVehicleModelIsSuppressed(GetHashKey("taco"), true)
+       -- SetVehicleModelIsSuppressed(GetHashKey("biff"), true)
+        SetVehicleModelIsSuppressed(GetHashKey("blimp"), true)
 		Wait(0)
 	end
 end)
